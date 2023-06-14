@@ -36,10 +36,10 @@ function create_dir {
         else
             create_dir_with_big_name
         fi
-        sudo mkdir $path$dir_name 2>/home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error.txt
-        if ! [[ -s /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error.txt ]]
+        sudo mkdir $path$dir_name 2>/home/tgeodude/proj/Linux-Monitoring-v2/src/02/error.txt
+        if ! [[ -s /home/tgeodude/proj/Linux-Monitoring-v2/src/02/error.txt ]]
         then
-            echo $path$dir_name --- $(date +'%Y-%m-%d %H:%M:%S') --- >> /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/log.txt
+            echo $path$dir_name --- $(date +'%Y-%m-%d %H:%M:%S') --- >> /home/tgeodude/proj/Linux-Monitoring-v2/src/02/log.txt
             create_files
         fi
     else
@@ -80,21 +80,21 @@ function create_files {
         file_name=""
         if [[ ${#file_name_start} -lt 5 ]]
         then
-            if ! [[ -s /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error1.txt ]]
+            if ! [[ -s /home/tgeodude/proj/Linux-Monitoring-v2/src/02/error1.txt ]]
             then
                 create_files_with_little_name
-                echo $path$dir_name"/"$file_name --- $(date +'%Y-%m-%d %H:%M:%S') --- $size "Mb" >> /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/log.txt
+                echo $path$dir_name"/"$file_name --- $(date +'%Y-%m-%d %H:%M:%S') --- $size "Mb" >> /home/tgeodude/proj/Linux-Monitoring-v2/src/02/log.txt
             else
-                rm -rf /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error1.txt
+                rm -rf /home/tgeodude/proj/Linux-Monitoring-v2/src/02/error1.txt
                 break
             fi
         else
-            if ! [[ -s /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error1.txt ]]
+            if ! [[ -s /home/tgeodude/proj/Linux-Monitoring-v2/src/02/error1.txt ]]
             then
                 create_files_with_big_name
-                echo $path$dir_name"/"$file_name --- $(date +'%Y-%m-%d %H:%M:%S') --- $size "Mb" >> /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/log.txt
+                echo $path$dir_name"/"$file_name --- $(date +'%Y-%m-%d %H:%M:%S') --- $size "Mb" >> /home/tgeodude/proj/Linux-Monitoring-v2/src/02/log.txt
             else
-                rm -rf /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error1.txt
+                rm -rf /home/tgeodude/proj/Linux-Monitoring-v2/src/02/error1.txt
                 break
             fi
         fi
@@ -113,7 +113,7 @@ function create_files_with_little_name {
     file_name+=$(date +"%d%m%y")
     file_name+="."
     file_name+=$file_name_end
-    sudo fallocate -l $size"MB" $path/$dir_name/$file_name 2>/home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error1.txt
+    sudo fallocate -l $size"MB" $path/$dir_name/$file_name 2>/home/tgeodude/proj/Linux-Monitoring-v2/src/02/error1.txt
     if [[ $(df / -BM | grep "/" | awk -F"M" '{ print $3 }') -le 1024 ]]
     then
         stop_script
@@ -136,14 +136,14 @@ function create_files_with_big_name {
 }
 
 function stop_script {
-    rm -rf /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error.txt
-    rm -rf /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/error1.txt
+    rm -rf /home/tgeodude/proj/Linux-Monitoring-v2/src/02/error.txt
+    rm -rf /home/tgeodude/proj/Linux-Monitoring-v2/src/02/error1.txt
     END=$(date +'%s%N')
     END_TIME=$(date +'%Y-%m-%d %H:%M:%S')
-    echo "Script finished at $END_TIME" >> /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/log.txt
+    echo "Script finished at $END_TIME" >> /home/tgeodude/proj/Linux-Monitoring-v2/src/02/log.txt
     echo "Script finished at $END_TIME"
     DIFF=$((( $END - $START ) / 100000000 ))
-    echo "Script execution time (in seconds) = $(( $DIFF / 10 )).$(( $DIFF % 10 ))" >> /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/log.txt
+    echo "Script execution time (in seconds) = $(( $DIFF / 10 )).$(( $DIFF % 10 ))" >> /home/tgeodude/proj/Linux-Monitoring-v2/src/02/log.txt
     echo "Script execution time (in seconds) = $(( $DIFF / 10 )).$(( $DIFF % 10 ))"
-    echo -e "" >> /home/changeli/DO4_LinuxMonitoring_v2.0-0/src/02/log.txt
+    echo -e "" >> /home/tgeodude/proj/Linux-Monitoring-v2/src/02/log.txt
 }
